@@ -1,140 +1,454 @@
-# Plantilla de Documentación con MkDocs + Material
+# Portafolio Web con MkDocs
 
-Formato de página web para documentar **proyectos** y **actividades de clase** usando **Markdown**.  
-Esta plantilla genera un sitio con **MkDocs** y el tema **Material**.
+Plantilla para crear y publicar un portafolio web utilizando **Markdown**, **MkDocs Material**, **Git** y **GitHub Pages**.
 
----
-
-## Qué van a lograr
-- Ver la documentación **en su computadora** (servidor local con autorecarga).
-- Editar archivos Markdown en `docs/`.
-- Publicar el sitio **automáticamente** en GitHub Pages al hacer push (si usan GitHub con esta plantilla).
+El contenido del sitio se edita localmente en Visual Studio Code dentro de la carpeta `docs/`. Los cambios se guardan con Git y, al hacer `push` al repositorio, el sitio se publica automáticamente mediante GitHub Actions.
 
 ---
 
-## Requisitos (instalar primero)
+## Requisitos
 
-### 1) Instalar **Python 3.10+**
-- **Windows/macOS/Linux:** descargar desde https://www.python.org/downloads/
-- En **Windows**, marcar la casilla **“Add Python to PATH”** durante la instalación.
+Antes de comenzar instala:
 
-Para comprobar desde terminal:
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Git](https://git-scm.com/downloads)
+- [Python 3.10+](https://www.python.org/downloads/)
+
+> En Windows, durante la instalación de Python, activa **Add Python to PATH**.
+
+Comprueba las instalaciones desde una terminal:
+
 ```bash
 python --version
-# o según tu sistema
-python3 --version
-```
-
-### 2) Instalar Git
-
-- Descargar desde https://git-scm.com/downloads (Windows/macOS/Linux).
-
-Para comprobar desde terminal:
-```bash
 git --version
 ```
 
-Instalar: Visual Studio Code https://code.visualstudio.com/
+En macOS/Linux puede ser necesario utilizar:
 
-### 3) Crear tu repositorio desde esta plantilla
+```bash
+python3 --version
+```
 
-1. Abre Visual Studio Code.
-2. En la barra de menú, selecciona "Terminal"-> "Nuevo Terminal". Aparecerá una nueva pestaña de terminal en la parte inferior.
-3. En un navegador de internet abre esta plantilla en GitHub y haz clic en Use this template → Create a new repository.
-4. Ponle nombre a tu repo (por ejemplo, mi-docs) y crea el repositorio.
-5. En tu computadora regresa a la terminal de Visual Studio Code, y elige en que carpeta clonar tu nuevo repo, usando los comandos `cd` por ejemplo:
+---
+
+## 1. Crear un repositorio desde esta plantilla
+
+En un navegador de internet abre esta plantilla en GitHub y haz clic en:
+
+```text
+Use this template → Create a new repository
+```
+
+Asigna un nombre al nuevo repositorio y créalo.
+
+Después copia la dirección HTTPS desde:
+
+```text
+Code → HTTPS
+```
+
+Te deberia dar un texto similar a:
+
+```text
+https://github.com/<tu-usuario>/<tu-repo>.git
+```
+
+---
+
+## 2. Clonar el repositorio
+
+Abre Visual Studio Code y selecciona:
+
+```text
+Terminal → New Terminal
+```
+
+Ve a la carpeta donde quieras guardar el proyecto:
+
 ```bash
 cd ruta/a/tu/carpeta
 ```
-6. Clona tu repositorio con el comando siguiente, reemplazando `<tu-usuario>` y `<tu-repo>` con el encontrado en la pagina, cuando le das click a "Code"->"https" y copias la ruta
+
+Clona el repositorio:
 
 ```bash
 git clone https://github.com/<tu-usuario>/<tu-repo>.git
+```
+
+Entra a la carpeta:
+
+```bash
 cd <tu-repo>
 ```
 
-!!! Importante: No olvides configurar tu nombre de usuario y correo electrónico en Git. Esto es necesario para que tus commits se registren correctamente.
+Opcionalmente puedes abrirla directamente en Visual Studio Code:
 
 ```bash
-git config --global user.name "Tu Nombre"
+code .
+```
+
+---
+
+## 3. Configurar Git
+
+Si es la primera vez que utilizas Git en tu computadora, configura tu nombre de usuario y correo de tu cuenta de GitHub:
+
+```bash
+git config --global user.name "Tu Nombre de Usuario"
 git config --global user.email "tu.email@example.com"
 ```
 
-### 4) Instalar dependencias (una sola vez por repo)
+---
 
-Recomendado: usar entorno virtual para aislar paquetes. (OPCIONAL)
+## 4. Instalar las dependencias
 
-WINDOWS
-
-```bash
-pip install mkdocs-material
-```
-
-macOS / Linux
+Desde la carpeta principal del repositorio ejecuta:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install mkdocs-material
+python -m pip install -r requirements.txt
 ```
 
-### 5) Ejecutar sitio
+esto instalara todo lo necesario para ejecutar el sitio localmente.
 
-Desde la carpeta del repo en la terminal:
+En algunos sistemas puede ser necesario utilizar:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+Este paso solo se realiza una vez por computadora.
+
+---
+
+## 5. Ejecutar el sitio localmente
+
+En tu terminal asegurandote que estás en la carpeta principal del repositorio ejecuta:
 
 ```bash
 mkdocs serve
 ```
 
-Abre el navegador en http://127.0.0.1:8000/
-Cada cambio que hagas en archivos dentro de `docs/` se verá al instante cuando guardes(autorecarga).
+Abre en el navegador:
+
+```text
+http://127.0.0.1:8000/
+```
+
+Los cambios realizados dentro de `docs/` se actualizarán automáticamente al guardar los archivos.
+
+Para detener el servidor:
+
+```text
+Ctrl + C
+```
 
 ---
 
-## FAQS
+## Estructura del proyecto
 
-### ¿Dónde edito?
+```text
+.
+├── docs/
+│   └── index.md
+│
+├── mkdocs.yml
+├── requirements.txt
+│
+└── .github/
+    └── workflows/
+```
 
-Todas las páginas están en la carpeta `docs/`.
-La página inicial es `docs/index.md`.
-Crea más páginas (`.md`) y no uses acentos/espacios en nombres de archivo.
+### `docs/`
 
-Controla el menú lateral agregando una sección `nav:` en `mkdocs.yml`.
+Contiene las páginas del sitio.
 
-### Publicación automática
+La página principal es:
 
-Este proyecto incluye un flujo de GitHub Actions que publica el sitio automáticamente al hacer push a la rama principal (o cuando el flujo está configurado para ejecutarse).
-Pasos:
+```text
+docs/index.md
+```
 
-1. Configura el deploy de tu pagina, en tu repositorio de GitHub, entra a la pestaña "Settings" y busca la sección "Pages".
-2. En `source` selecciona Deploy from a branch, y en Branch seleccion `gh-pages` y `/root`
-3. Sube tus Cambios
+Para agregar nuevas páginas simplemente crea nuevos archivos `.md` dentro de `docs/`.
+
+Por ejemplo:
+
+```text
+docs/
+├── index.md
+├── proyecto1.md
+├── proyecto2.md
+└── contacto.md
+```
+
+Se recomienda evitar espacios y acentos en los nombres de archivo.
+
+---
+
+### `mkdocs.yml`
+
+Contiene la configuración general del sitio.
+
+El menú lateral puede definirse mediante `nav:`.
+
+Por ejemplo:
+
+```yaml
+nav:
+  - Inicio: index.md
+  - Proyecto 1: proyecto1.md
+  - Proyecto 2: proyecto2.md
+```
+
+---
+
+### `.github/workflows/`
+
+Contiene la configuración utilizada para publicar automáticamente el sitio.
+
+**No es necesario modificar esta carpeta**.
+
+---
+
+# Flujo normal de trabajo
+
+```Bash
+git status
+git pull
+# trabajar
+git status
+git add .
+git status
+git commit -m "..."
+git push
+```
+
+
+Antes de comenzar a editar, verifica que tu repositorio local esté actualizado usando:
+
+```bash
+git status
+```
+
+Del status veras distintos mensajes, algunos tipicos son:
+
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+```
+
+Significado:
+ - Estas en la rama `main`
+ - Tu computadora esta sincronizada con la nube (GitHub)
+ - no tienes cambios pendientes de guardar
+
+
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+
+        modified:   docs/index.md
+
+no changes added to commit
+```
+
+Significado:
+ - git detecto cambios en `docs/index.md` que no han sido guardados en un commit
+
+```text
+Changes to be committed:
+
+        modified:   docs/index.md
+        new file:   docs/practica1.md
+```
+
+Significado:
+    - Los cambios ya estan preparados para ser guardados en un commit
+
+
+Si tu repositorio local no está actualizado, primero realiza:
+
+```bash
+git pull
+```
+
+Después realiza los cambios necesarios en los archivos dentro de `docs/`.
+
+Puedes visualizar el sitio localmente con:
+
+```bash
+mkdocs serve
+```
+
+Cuando termines:
+
+```bash
+git status
+```
+
+Prepara los cambios:
+
 ```bash
 git add .
-git commit -m "Actualizo documentación"
-git push origin main
 ```
-4. Ve a la pestaña Actions de tu repo en GitHub y verifica que el flujo de “build/deploy” se ejecute correctamente.
-5. La página quedará disponible como Project Site en una URL del tipo:
-```php-template
+
+Puedes comprobar nuevamente qué archivos serán incluidos:
+
+```bash
+git status
+```
+
+Crea un commit:
+
+```bash
+git commit -m "Descripcion de los cambios"
+```
+
+Finalmente sube los cambios:
+
+```bash
+git push
+```
+
+El flujo habitual es:
+
+```text
+git pull
+    ↓
+Editar archivos
+    ↓
+mkdocs serve
+    ↓
+git status
+    ↓
+git add .
+    ↓
+git commit
+    ↓
+git push
+```
+
+---
+
+# Publicar con GitHub Pages
+
+El repositorio incluye un flujo de GitHub Actions encargado de generar y publicar automáticamente el sitio.
+
+Después del primer `push`, revisa la pestaña:
+
+```text
+Actions
+```
+
+y verifica que el proceso termine correctamente.
+
+Después entra a:
+
+```text
+Settings
+→ Pages
+```
+
+Selecciona:
+
+```text
+Source: Deploy from a branch
+Branch: gh-pages
+Folder: /root
+```
+
+Una vez configurado, el sitio estará disponible en una dirección similar a:
+
+```text
 https://<tu-usuario>.github.io/<tu-repo>/
 ```
 
-Si no aparece:
+Esta configuración se realiza solamente una vez.
 
-- Revisa Settings → Pages y selecciona GitHub Actions como método de publicación.
-- Asegúrate de que el flujo en .github/workflows/ exista y finalice en “success”.
+Después, cada:
 
-
---- 
-
-## Estructura Minima de proyecto
 ```bash
-.
-├─ docs/
-│  └─ index.md        # tu portada
-├─ mkdocs.yml         # configuración de MkDocs
-├─ requirements.txt   # (opcional) dependencias
-└─ .github/
-   └─ workflows/      # flujo para publicar automáticamente
+git push
+```
+
+actualizará automáticamente el sitio publicado.
+
+---
+
+# Problemas comunes
+
+## `python` no se reconoce
+
+Prueba:
+
+```bash
+python3 --version
+```
+
+Si tampoco funciona, verifica que Python esté instalado y agregado al `PATH`.
+
+---
+
+## `mkdocs` no se reconoce
+
+Instala nuevamente las dependencias:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+---
+
+## Revisar la carpeta actual
+
+En macOS/Linux:
+
+```bash
+ls
+```
+
+En Windows:
+
+```bash
+dir
+```
+
+---
+
+## `git push` no funciona
+
+Primero intenta actualizar el repositorio:
+
+```bash
+git pull
+```
+
+y después:
+
+```bash
+git push
+```
+
+Si Git reporta un **conflicto**, evita utilizar comandos como `--force` hasta resolverlo correctamente.
+
+---
+
+## Resumen rápido
+
+Para trabajar normalmente en el sitio:
+
+```bash
+git pull
+
+mkdocs serve
+
+# editar archivos
+
+git status
+git add .
+git commit -m "Descripcion de los cambios"
+git push
 ```
