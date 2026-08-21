@@ -1,7 +1,7 @@
 # Encabezados
 
 ``` codigo
-# Título H1
+# Bitacira 1
 ## Título H2
 ### Título H3
 ```
